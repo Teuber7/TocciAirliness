@@ -7,6 +7,7 @@ public class Main {
     	String[] opciones = { "Teléfono", "Contraseña", "Email", "Salir"};
     	
     	int seleccion1;
+    	
 		do {
 			seleccion1 = JOptionPane.showOptionDialog(null, "Seleccione lo que desea validar",
 	    			"Menú", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, opciones[0]);
