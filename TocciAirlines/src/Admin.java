@@ -24,4 +24,4 @@ public class Admin extends Usuario  implements Menu{
 		
 	}
 
-}
+
