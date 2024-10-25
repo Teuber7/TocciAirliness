@@ -1,7 +1,8 @@
 package GUI;
-import javax.swing.*;
 
+import javax.swing.*;
 import BLL.Administrador;
+import BLL.Cliente;
 import BLL.Paquetes;
 import BLL.Vuelo;
 import DLL.controllerUsuario;
@@ -24,36 +25,34 @@ public class Main {
         };
 
         ArrayList<Paquetes> paquetes = new ArrayList<>();
-        paquetes.add(new Paquetes("Tour en Buenos Aires", null, 150));
-        paquetes.add(new Paquetes("Visita al Museo del Prado", null, 200));
-        paquetes.add(new Paquetes("Crucero por el río Hudson", null, 300));
-
-       // ArrayList<Reserva> reservas = new ArrayList<>();
+        paquetes.add(new Paquetes("Tour en Buenos Aires", "Visita guiada por la ciudad", 150));
+        paquetes.add(new Paquetes("Visita al Museo del Prado", "Incluye entrada y guía", 200));
+        paquetes.add(new Paquetes("Crucero por el río Hudson", "Crucero con cena incluida", 300));
 
         // Login
         String username = JOptionPane.showInputDialog("Usuario:");
-        String password = JOptionPane.showInputDialog("Contraseña:");
+        String password = JOptionPane.showInputDialog("Contraseña");
 
         if (admin.login(username, password)) {
             // Menú de administrador
-            JOptionPane.showMessageDialog(null, "Bienvenido, Admin");
-            
+            JOptionPane.showMessageDialog(null, "Bisenvenido, Admin");
+
             String[] opcionAdmin = {"Crear vuelo", "Crear Paquete", "CRUD Usuarios", "Mostrar Usuarios", "Salir"};
-            int opciAd = 0;
+            int opciAd;
             do {
                 opciAd = JOptionPane.showOptionDialog(null, "¿Qué desea realizar?", null, 0, 0, null, opcionAdmin, opcionAdmin[0]);
                 switch (opciAd) {
                     case 0:
-                        String origen =  JOptionPane.showInputDialog("Ingrese nuevo Origen");
+                        String origen = JOptionPane.showInputDialog("Ingrese nuevo Origen");
                         String destino = JOptionPane.showInputDialog("Ingrese nuevo Destino");
-                        // Vuelo vuelo1 = new Vuelo("AA101", "Airlander", origen, destino, "2024-09-25", 350.000);
+                        // Lógica para crear un vuelo
                         break;
                     case 1:
-                        admin.ver(paquetes);
-                        String origen1 =  JOptionPane.showInputDialog("Ingrese nuevo Origen");
-                        String destino2 = JOptionPane.showInputDialog("Ingrese nuevo Destino");
-                        String actividades = JOptionPane.showInputDialog("Ingrese actividades");
-                        String hotel =  JOptionPane.showInputDialog("Ingrese nuevo Hotel");
+                        String nombrePaquete = JOptionPane.showInputDialog("Ingrese el nombre del paquete");
+                        String descripcion = JOptionPane.showInputDialog("Ingrese la descripción del paquete");
+                        double precio = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio del paquete"));
+                        Paquetes nuevoPaquete = new Paquetes(nombrePaquete, descripcion, precio);
+                        admin.agregarPaquete(nuevoPaquete);
                         break;
                     case 2:
                         String[] crudOptions = {"Crear", "Leer", "Actualizar", "Eliminar"};
@@ -85,7 +84,7 @@ public class Main {
             // Menú de cliente
             JOptionPane.showMessageDialog(null, "Bienvenido, Cliente");
             String[] opcionCliente = {"Comprar vuelo", "Elegir Paquete", "Salir"};
-            int opciCliente = 0;
+            int opciCliente;
             do {
                 opciCliente = JOptionPane.showOptionDialog(null, "¿Qué desea realizar?", null, 0, 0, null, opcionCliente, opcionCliente[0]);
                 switch (opciCliente) {

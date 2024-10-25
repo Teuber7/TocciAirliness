@@ -14,8 +14,8 @@ public class Administrador extends controllerPaqueteActividades {
         this.password = password;
     }
 
-    public boolean login() {
-        return login();
+    public boolean login(String username, String password) {
+        return login(username, password);
     }
 
     public ArrayList<Paquetes> verPaquetes() {
