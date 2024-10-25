@@ -1,6 +1,7 @@
 /Actividades.class
-/Admin.class
+/Administrador.class
 /Destino.class
+/Gestionable.class
 /Main.class
 /Menu.class
 /Paquetes.class
@@ -9,3 +10,6 @@
 /Tarjeta_debito.class
 /Usuario.class
 /Vuelo.class
+/DLL/
+/BLL/
+/GUI/

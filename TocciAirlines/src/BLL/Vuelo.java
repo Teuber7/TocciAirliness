@@ -1,3 +1,4 @@
+package BLL;
 public class Vuelo {
 
     private String destino;
