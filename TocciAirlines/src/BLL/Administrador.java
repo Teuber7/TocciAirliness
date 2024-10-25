@@ -14,14 +14,15 @@ public class Administrador extends controllerPaqueteActividades {
         this.password = password;
     }
 
-    public boolean login(String username, String password) {
-        return login(username, password);
+    public boolean login(String email, String password) {
+        // Verificar si el email y la contraseña coinciden
+        return this.email.equals(email) && this.password.equals(password);
     }
 
     public ArrayList<Paquetes> verPaquetes() {
         ArrayList<Paquetes> paquetes = verPaquetes();
         paquetes.forEach(paquete -> System.out.println(paquete));
-		return paquetes;
+        return paquetes;
     }
 
     public void agregarPaquete(Paquetes paquete) {
@@ -36,4 +37,3 @@ public class Administrador extends controllerPaqueteActividades {
         eliminarPaquete(id);
     }
 }
-

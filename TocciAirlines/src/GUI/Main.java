@@ -31,11 +31,11 @@ public class Main {
 
         // Login
         String username = JOptionPane.showInputDialog("Usuario:");
-        String password = JOptionPane.showInputDialog("Contraseña");
+        String password = JOptionPane.showInputDialog("Contraseña:");
 
         if (admin.login(username, password)) {
             // Menú de administrador
-            JOptionPane.showMessageDialog(null, "Bisenvenido, Admin");
+            JOptionPane.showMessageDialog(null, "Bienvenido, Admin");
 
             String[] opcionAdmin = {"Crear vuelo", "Crear Paquete", "CRUD Usuarios", "Mostrar Usuarios", "Salir"};
             int opciAd;
@@ -104,5 +104,4 @@ public class Main {
         }
     }
 }
-
 

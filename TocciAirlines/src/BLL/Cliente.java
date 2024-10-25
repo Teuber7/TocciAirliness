@@ -27,7 +27,7 @@ public class Cliente {
         for (int i = 0; i < paquetes.size(); i++) {
             System.out.println((i + 1) + ". " + paquetes.get(i));
         }
-        
+        // Aquí puedes implementar la lógica de selección de paquetes
     }
 }
 
