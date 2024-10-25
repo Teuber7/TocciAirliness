@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import BLL.Paquetes;
 
 public class controllerPaqueteActividades {
-    private ArrayList<Paquetes> paquetes;
+    private static ArrayList<Paquetes> paquetes;
 
     public void controllerPaquetes() {
         this.paquetes = new ArrayList<>();
     }
 
     // CRUD Paquetes de Actividades
-    public void crearPaquete() {
+    public static void crearPaquete() {
         String descripcion = JOptionPane.showInputDialog("Ingrese la descripción del paquete:");
         double precio = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio del paquete:"));
         Paquetes nuevoPaquete = new Paquetes(descripcion, descripcion, precio);
@@ -31,7 +31,7 @@ public class controllerPaqueteActividades {
         JOptionPane.showMessageDialog(null, "Paquete no encontrado.");
     }
 
-    public void actualizarPaquete() {
+    public static void actualizarPaquete() {
         String descripcion = JOptionPane.showInputDialog("Ingrese la descripción del paquete a actualizar:");
         for (Paquetes paquete : paquetes) {
             if (paquete.getDescripcion().equalsIgnoreCase(descripcion)) {

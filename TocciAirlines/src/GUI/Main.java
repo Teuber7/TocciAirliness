@@ -33,7 +33,7 @@ public class Main {
         String username = JOptionPane.showInputDialog("Usuario:");
         String password = JOptionPane.showInputDialog("Contraseña:");
 
-        if (admin.login(username, password)) {
+        if (Administrador.Logi2n(username, password)!=null) {
             // Menú de administrador
             JOptionPane.showMessageDialog(null, "Bienvenido, Admin");
 

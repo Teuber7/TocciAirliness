@@ -1,94 +1,167 @@
 package DLL;
 
-import javax.swing.*;
-import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 import BLL.Usuario;
-import BLL.Administrador;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.LinkedList;
 
 public class controllerUsuario {
-    private ArrayList<Usuario> usuarios;
-    private Administrador admin;
 
-    public controllerUsuario() {
-        this.usuarios = new ArrayList<>();
-        this.admin = new Administrador("admin", "1234"); // Inicializar el administrador
+    private static Connection getConnection() {
+        try {
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/tocci_airlines", "root", "");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos.");
+            return null;
+        }
     }
 
-    // CRUD
     public void crearUsuario() {
-        if (!verificarAcceso()) return;
 
         String username = JOptionPane.showInputDialog("Ingrese nombre de usuario:");
         String password = JOptionPane.showInputDialog("Ingrese contraseña:");
-        Usuario nuevoUsuario = new Usuario();
-        usuarios.add(nuevoUsuario);
-        JOptionPane.showMessageDialog(null, "Usuario creado exitosamente.");
+        String rol = JOptionPane.showInputDialog("Ingrese el rol del usuario:");
+
+        String query = "INSERT INTO `usuario`(`nombre`, `apellido`, `email`, `contraseña`, ) VALUES "
+        		+ "(?,?,?,?)";
+        
+        try (Connection con = getConnection();
+             PreparedStatement stmt = con.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
+             
+            stmt.setString(1, username);
+            stmt.setString(2, rol);
+            stmt.setString(3, password);
+            
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        JOptionPane.showMessageDialog(null, "Usuario creado exitosamente. ID: " + generatedKeys.getLong(1));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al crear el usuario.");
+        }
     }
 
     public void leerUsuario() {
-        if (!verificarAcceso()) return;
 
-        String username = JOptionPane.showInputDialog("Ingrese el nombre del usuario a buscar:");
-        for (Usuario usuario : usuarios) {
-            if (usuario.getUsername().equals(username)) {
-                JOptionPane.showMessageDialog(null, "Usuario encontrado: " + usuario.getUsername());
-                return;
+        int id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del usuario a buscar:"));
+        String query = "SELECT * FROM persona WHERE id = ?";
+        
+        try (Connection con = getConnection();
+             PreparedStatement stmt = con.prepareStatement(query)) {
+             
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                String nombre = rs.getString("nombre");
+                JOptionPane.showMessageDialog(null, "Usuario encontrado: " + nombre);
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario no encontrado.");
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al buscar el usuario.");
         }
-        JOptionPane.showMessageDialog(null, "Usuario no encontrado.");
     }
 
     public void actualizarUsuario() {
-        if (!verificarAcceso()) return;
 
-        String username = JOptionPane.showInputDialog("Ingrese el nombre del usuario a actualizar:");
-        for (Usuario usuario : usuarios) {
-            if (usuario.getUsername().equals(username)) {
-                String nuevoUsername = JOptionPane.showInputDialog("Ingrese nuevo nombre de usuario:");
-                String nuevaPassword = JOptionPane.showInputDialog("Ingrese nueva contraseña:");
-                usuario.setUsername(nuevoUsername);
-                usuario.setPassword(nuevaPassword);
-                JOptionPane.showMessageDialog(null, "Usuario actualizado exitosamente.");
-                return;
+        int id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del usuario a actualizar:"));
+        String query = "SELECT * FROM persona WHERE id = ?";
+        
+        try (Connection con = getConnection();
+             PreparedStatement stmt = con.prepareStatement(query)) {
+             
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                String nuevoUsername = JOptionPane.showInputDialog("Ingrese nuevo nombre de usuario:", rs.getString("nombre"));
+                String nuevoRol = JOptionPane.showInputDialog("Ingrese nuevo rol del usuario:", rs.getString("rol"));
+                String nuevaPassword = JOptionPane.showInputDialog("Ingrese nueva contraseña:", rs.getString("password"));
+                
+                String updateQuery = "UPDATE persona SET nombre = ?, rol = ?, password = ? WHERE id = ?";
+                
+                try (PreparedStatement updateStmt = con.prepareStatement(updateQuery)) {
+                    updateStmt.setString(1, nuevoUsername);
+                    updateStmt.setString(2, nuevoRol);
+                    updateStmt.setString(3, nuevaPassword);
+                    updateStmt.setInt(4, id);
+                    
+                    int rowsAffected = updateStmt.executeUpdate();
+                    if (rowsAffected > 0) {
+                        JOptionPane.showMessageDialog(null, "Usuario actualizado exitosamente.");
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario no encontrado.");
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al actualizar el usuario.");
         }
-        JOptionPane.showMessageDialog(null, "Usuario no encontrado.");
     }
 
     public void eliminarUsuario() {
-        if (!verificarAcceso()) return;
 
-        String username = JOptionPane.showInputDialog("Ingrese el nombre del usuario a eliminar:");
-        for (Usuario usuario : usuarios) {
-            if (usuario.getUsername().equals(username)) {
-                usuarios.remove(usuario);
+        int id = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del usuario a eliminar:"));
+        String query = "DELETE FROM persona WHERE id = ?";
+        
+        try (Connection con = getConnection();
+             PreparedStatement stmt = con.prepareStatement(query)) {
+             
+            stmt.setInt(1, id);
+            int rowsAffected = stmt.executeUpdate();
+            
+            if (rowsAffected > 0) {
                 JOptionPane.showMessageDialog(null, "Usuario eliminado exitosamente.");
-                return;
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario no encontrado.");
             }
-        }
-        JOptionPane.showMessageDialog(null, "Usuario no encontrado.");
-    }
-
-    public void mostrarUsuarios() {
-        if (!verificarAcceso()) return;
-
-        StringBuilder listaUsuarios = new StringBuilder("Usuarios:\n");
-        for (Usuario usuario : usuarios) {
-            listaUsuarios.append(usuario.getUsername()).append("\n");
-        }
-        JOptionPane.showMessageDialog(null, listaUsuarios.toString());
-    }
-
-    // Verificación de acceso para administrador
-    private boolean verificarAcceso() {
-        String username = JOptionPane.showInputDialog("Usuario (Admin):");
-        String password = JOptionPane.showInputDialog("Contraseña (Admin):");
-
-        if (admin.login(username, password)) {
-            return true;
-        } else {
-            JOptionPane.showMessageDialog(null, "Acceso denegado. Solo el administrador puede realizar esta acción.");
-            return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al eliminar el usuario.");
         }
     }
+
+    public static LinkedList<Usuario> mostrarUsuarios() {
+    	 LinkedList<Usuario> usuarios= new LinkedList<Usuario> ();
+     
+
+        String query = "SELECT * FROM usuario";
+
+        try (Connection con = getConnection();
+             PreparedStatement stmt = con.prepareStatement(query);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+            	usuarios.add(new Usuario(
+            			rs.getString("nombre"),
+            			rs.getString("contraseña") 
+            			) 
+            			);
+            }
+            return usuarios;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al mostrar los usuarios.");
+            return null;
+        }
+    }
+
+     //Verificación de acceso para administrador
+    
 }
+
