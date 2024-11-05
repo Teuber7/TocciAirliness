@@ -14,7 +14,7 @@ public class Main {
         // Crear usuarios
         Administrador admin = new Administrador("admin", "1234");
         Cliente cliente = new Cliente("cliente", "1234");
-
+//:D
         controllerUsuario userController = new controllerUsuario(); // Controlador de usuarios
 
         // Inicializar vuelos y paquetes
