@@ -95,9 +95,12 @@ public class Main {
             ));*/
 
             switch (option) {
-                case 0:
-                    int idVuelo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del vuelo que desea comprar:"));
-                    controllerVuelo.comprarVuelo(idUsuario, idVuelo);
+                case 0:               
+                	 String origen = JOptionPane.showInputDialog("Ingrese el origen del vuelo:");
+                     String destino = JOptionPane.showInputDialog("Ingrese el destino del vuelo:");
+                     controllerVuelo.buscarVuelosPorOrigenDestino(origen, destino);
+                     int idVuelo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del vuelo que desea comprar:"));
+                     controllerVuelo.comprarVuelo(idUsuario, idVuelo);
                     break;
                 case 1:
                     int idPaquete = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del paquete que desea comprar:"));
@@ -325,5 +328,3 @@ public class Main {
         JOptionPane.showMessageDialog(null, sb.toString());
     }
 }
-
-
