@@ -9,30 +9,27 @@ public class conexion {
     private static final String USER = "root";
     private static final String PASSWORD = "";
 
-    private static Connection conect;
-
-    private conexion() {}
+    private conexion() {} 
 
     public static Connection getConnection() {
-        if (conect == null) {
-            try {
-                conect = DriverManager.getConnection(URL, USER, PASSWORD);
-                System.out.println("Conexión establecida con éxito.");
-            } catch (SQLException e) {
-                System.out.println("Error al conectar: " + e.getMessage());
-            }
+        try {
+            Connection conect = DriverManager.getConnection(URL, USER, PASSWORD);
+            System.out.println("Conexión establecida con éxito.");
+            return conect;
+        } catch (SQLException e) {
+            System.out.println("Error al conectar: " + e.getMessage());
+            return null;
         }
-        return conect;
     }
 
-    public static void closeConnection() {
-        if (conect != null) {
+    public static void closeConnection(Connection conn) {
+        if (conn != null) {
             try {
-                conect.close();
+                conn.close();
                 System.out.println("Conexión cerrada exitosamente.");
-                conect = null;
             } catch (SQLException e) {
                 System.out.println("Error al cerrar la conexión: " + e.getMessage());
             }
         }
     }
+}
