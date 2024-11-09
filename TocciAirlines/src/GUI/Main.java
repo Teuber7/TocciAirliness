@@ -41,16 +41,6 @@ public class Main {
     	String[] opciones = { "CRUD Vuelo", "CRUD Paquete", "CRUD Usuario", "CRUD Alojamiento", "CRUD Actividad", "Salir" };
     	int option;
         do {
-          /*  option = Integer.parseInt(JOptionPane.showInputDialog(
-                "Menú principal (Admin):\n" +
-                "1. CRUD Vuelo\n" +
-                "2. CRUD Paquete\n" +
-                "3. CRUD Usuario\n" +
-                "4. CRUD Alojamiento\n" +
-                "5. CRUD Actividad\n" +
-                "6. Salir\n" +
-                "Seleccione una opción:"
-            ));*/
         	
         	option = JOptionPane.showOptionDialog(null, "Elija una opción", "Menù de Admin",
 					JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, opciones[0]);
@@ -85,14 +75,7 @@ public class Main {
     	int option;
         do {
         	option = JOptionPane.showOptionDialog(null, "Seleccione una opción:", "Menù de cliente",
-					JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, opciones[0]);
-           /* option = Integer.parseInt(JOptionPane.showInputDialog(
-                "Menú principal (Cliente):\n" +
-                "1. Comprar Vuelo\n" +
-                "2. Comprar Paquete\n" +
-                "3. Salir\n" +
-                "Seleccione una opción:"
-            ));*/
+					JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, opciones[0]);    
 
             switch (option) {
                 case 0:               
@@ -120,15 +103,6 @@ public class Main {
 
     	int option;
         do {
-           /* option = Integer.parseInt(JOptionPane.showInputDialog(
-                "CRUD Vuelo:\n" +
-                "1. Crear Vuelo\n" +
-                "2. Listar Vuelos\n" +
-                "3. Actualizar Vuelo\n" +
-                "4. Eliminar Vuelo\n" +
-                "5. Volver al Menú principal\n" +
-                "Seleccione una opción:"
-            ));*/
         	option = JOptionPane.showOptionDialog(null, "Seleccione una opción:", "Menù de Admin",
 					JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, opciones[0]);
 
@@ -163,17 +137,6 @@ public class Main {
         	option = JOptionPane.showOptionDialog(null, "Seleccione una opción:", "Menù de Admin",
 					JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, opciones[0]);
 
-
-        	/*option = Integer.parseInt(JOptionPane.showInputDialog(
-                "CRUD Paquete:\n" +
-                "1. Crear Paquete\n" +
-                "2. Listar Paquetes\n" +
-                "3. Actualizar Paquete\n" +
-                "4. Eliminar Paquete\n" +
-                "5. Volver al Menú principal\n" +
-                "Seleccione una opción:"
-            ));*/
-
             switch (option) {
                 case 0:
                     controllerPaquete.crearPaquete();
@@ -205,15 +168,6 @@ public class Main {
         	option = JOptionPane.showOptionDialog(null, "Seleccione una opción:", "Menù de Admin",
 					JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, opciones[0]);
 
-           /* option = Integer.parseInt(JOptionPane.showInputDialog(
-                "CRUD Usuario:\n" +
-                "1. Crear Usuario\n" +
-                "2. Listar Usuarios\n" +
-                "3. Actualizar Usuario\n" +
-                "4. Eliminar Usuario\n" +
-                "5. Volver al Menú principal\n" +
-                "Seleccione una opción:"
-            ));*/
 
             switch (option) {
                 case 0:
@@ -245,17 +199,6 @@ public class Main {
         do {
         	option = JOptionPane.showOptionDialog(null, "Seleccione una opción:", "Menù de Admin",
 					JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, opciones[0]);
-
-        	/*option = Integer.parseInt(JOptionPane.showInputDialog(
-                "CRUD Alojamiento:\n" +
-                "1. Crear Alojamiento\n" +
-                "2. Listar Alojamientos\n" +
-                "3. Actualizar Alojamiento\n" +
-                "4. Eliminar Alojamiento\n" +
-                "5. Volver al Menú principal\n" +
-                "Seleccione una opción:"
-            ));*/
-
             switch (option) {
                 case 0:
                     controllerAlojamiento.crearAlojamiento();
@@ -286,16 +229,6 @@ public class Main {
         do {
         	option = JOptionPane.showOptionDialog(null, "Seleccione una opción:", "Menù de Admin",
 					JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, opciones[0]);
-
-        /*    option = Integer.parseInt(JOptionPane.showInputDialog(
-                "CRUD Actividad:\n" +
-                "1. Crear Actividad\n" +
-                "2. Listar Actividades\n" +
-                "3. Actualizar Actividad\n" +
-                "4. Eliminar Actividad\n" +
-                "5. Volver al Menú principal\n" +
-                "Seleccione una opción:"
-            ));*/
 
             switch (option) {
                 case 0:
