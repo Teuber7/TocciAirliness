@@ -111,4 +111,41 @@ public class ControllerVuelo {
             JOptionPane.showMessageDialog(null, "Error al registrar la compra de vuelo.");
         }
     }
+   public void buscarVuelosPorOrigenDestino(String origen, String destino) {
+        String query = "SELECT * FROM vuelo WHERE origen = ? AND destino = ?";
+        try (Connection con = getConnection(); PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, origen);
+            stmt.setString(2, destino);
+
+            ResultSet rs = stmt.executeQuery();
+            StringBuilder resultado = new StringBuilder("Vuelos encontrados:\n");
+
+            while (rs.next()) {
+                resultado.append("ID: ").append(rs.getInt("id_Vuelo"))
+                        .append(", Origen: ").append(rs.getString("origen"))
+                        .append(", Destino: ").append(rs.getString("destino"))
+                        .append(", Fecha de Salida: ").append(rs.getString("fecha_salida"))
+                        .append(", Fecha de Llegada: ").append(rs.getString("fecha_llegada"))
+                        .append(", Clase: ").append(rs.getString("clase"))
+                        .append(", Precio: ").append(rs.getDouble("precio"))
+                        .append("\n");
+            }
+
+            if (resultado.length() > "Vuelos encontrados:\n".length()) {
+                JOptionPane.showMessageDialog(null, resultado.toString());
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontraron vuelos con los criterios especificados.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al buscar vuelos.");
+        }
+    }
+   
+
+   
+
 }
+
