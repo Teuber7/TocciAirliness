@@ -1,11 +1,11 @@
 package GUI;
 
-import DLL.ControllerVuelo;
+import BLL.Usuario;
+import DLL.ControllerActividad;
+import DLL.ControllerAlojamiento;
 import DLL.ControllerPaquete;
 import DLL.ControllerUsuario;
-import DLL.ControllerAlojamiento;
-import DLL.ControllerActividad;
-import BLL.Usuario;
+import DLL.ControllerVuelo;
 import javax.swing.JOptionPane;
 
 public class Main {
@@ -32,13 +32,14 @@ public class Main {
     private static Usuario login(ControllerUsuario controllerUsuario) {
         String email = JOptionPane.showInputDialog("Ingrese su email:");
         String password = JOptionPane.showInputDialog("Ingrese su contraseña:");
+        
         return controllerUsuario.login(email, password);
     }
 
     private static void mostrarMenuAdmin(ControllerVuelo controllerVuelo, ControllerPaquete controllerPaquete,
                                          ControllerUsuario controllerUsuario, ControllerAlojamiento controllerAlojamiento,
                                          ControllerActividad controllerActividad) {
-    	String[] opciones = { "CRUD Vuelo", "CRUD Paquete", "CRUD Usuario", "CRUD Alojamiento", "CRUD Actividad", "Salir" };
+    	String[] opciones = { "CRUD Vuelo", "CRUD Paquete", "CRUD Usuario", "CRUD Alojamiento", "CRUD Actividad","Cambiar vuelo a cliente", "cambiar paquete a cliente", "Salir" };
     	int option;
         do {
         	
@@ -59,14 +60,24 @@ public class Main {
                     break;
                 case 4:
                     menuActividad(controllerActividad);
-                    break;
+                    break;       
                 case 5:
+                	int idUsuario = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del cliente:"));
+                    int idVuelo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del vuelo:"));
+                    controllerUsuario.asignarVueloACliente(idUsuario, idVuelo);
+                    break;
+                case 6:
+                	 idUsuario = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del cliente:"));
+                     int idPaquete = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del paquete:"));
+                     controllerUsuario.asignarPaqueteACliente(idUsuario, idPaquete);
+                    break;
+                case 7:
                     JOptionPane.showMessageDialog(null, "Saliendo del sistema...");
                     break;
                 default:
                     JOptionPane.showMessageDialog(null, "Opción inválida.");
             }
-        } while (option != 5);
+        } while (option != 7);
     }
 
     private static void mostrarMenuCliente(ControllerVuelo controllerVuelo, ControllerPaquete controllerPaquete, int idUsuario) {
@@ -108,7 +119,7 @@ public class Main {
 
             switch (option) {
                 case 0:
-                    controllerVuelo.crearVuelo();
+                      controllerVuelo.crearVuelo();
                     break;
                 case 1:
                     mostrarLista(controllerVuelo.listarVuelos(), "Lista de Vuelos");
@@ -261,3 +272,4 @@ public class Main {
         JOptionPane.showMessageDialog(null, sb.toString());
     }
 }
+

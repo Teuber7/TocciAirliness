@@ -1,9 +1,9 @@
 package DLL;
 
 import BLL.Usuario;
-import javax.swing.JOptionPane;
 import java.sql.*;
 import java.util.LinkedList;
+import javax.swing.JOptionPane;
 
 public class ControllerUsuario {
 
@@ -176,4 +176,54 @@ public class ControllerUsuario {
             }
         } while (option != 4);
     }
+ // ControllerUsuario.java
+    public void asignarVueloACliente(int idUsuario, int idVuelo) {
+        String query = "UPDATE usuario_vuelo SET id_vuelo = ? WHERE id_usuario = ?";
+
+        try (Connection con = getConnection(); PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setInt(1, idVuelo);
+            stmt.setInt(2, idUsuario);
+            int filasActualizadas = stmt.executeUpdate();
+
+            if (filasActualizadas == 0) {
+                // Si no hay registro previo, insertar uno nuevo
+                query = "INSERT INTO usuario_vuelo (id_usuario, id_vuelo) VALUES (?, ?)";
+                try (PreparedStatement stmtInsert = con.prepareStatement(query)) {
+                    stmtInsert.setInt(1, idUsuario);
+                    stmtInsert.setInt(2, idVuelo);
+                    stmtInsert.executeUpdate();
+                }
+            }
+
+            JOptionPane.showMessageDialog(null, "Vuelo asignado o actualizado correctamente para el cliente.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al asignar o actualizar el vuelo para el cliente.");
+        }
+    }
+
+    public void asignarPaqueteACliente(int idUsuario, int idPaquete) {
+        String query = "UPDATE usuario_paquete SET id_paquete = ? WHERE id_usuario = ?";
+
+        try (Connection con = getConnection(); PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setInt(1, idPaquete);
+            stmt.setInt(2, idUsuario);
+            int filasActualizadas = stmt.executeUpdate();
+
+            if (filasActualizadas == 0) {
+                query = "INSERT INTO usuario_paquete (id_usuario, id_paquete) VALUES (?, ?)";
+                try (PreparedStatement stmtInsert = con.prepareStatement(query)) {
+                    stmtInsert.setInt(1, idUsuario);
+                    stmtInsert.setInt(2, idPaquete);
+                    stmtInsert.executeUpdate();
+                }
+            }
+
+            JOptionPane.showMessageDialog(null, "Paquete asignado o actualizado correctamente para el cliente.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al asignar o actualizar el paquete para el cliente.");
+        }
+    }
+
 }
