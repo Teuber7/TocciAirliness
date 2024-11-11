@@ -1,11 +1,11 @@
 package GUI;
 
-import BLL.Usuario;
-import DLL.ControllerActividad;
-import DLL.ControllerAlojamiento;
+import DLL.ControllerVuelo;
 import DLL.ControllerPaquete;
 import DLL.ControllerUsuario;
-import DLL.ControllerVuelo;
+import DLL.ControllerAlojamiento;
+import DLL.ControllerActividad;
+import BLL.Usuario;
 import javax.swing.JOptionPane;
 
 public class Main {
@@ -93,14 +93,18 @@ public class Main {
                 	 String origen = JOptionPane.showInputDialog("Ingrese el origen del vuelo:");
                      String destino = JOptionPane.showInputDialog("Ingrese el destino del vuelo:");
                      controllerVuelo.buscarVuelosPorOrigenDestino(origen, destino);
+                   
                      int idVuelo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del vuelo que desea comprar:"));
-                     controllerVuelo.comprarVuelo(idUsuario, idVuelo);
+                     String clase = JOptionPane.showInputDialog("Ingrese la clase del vuelo (economica, premium, primera):");
+                     int boletos = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de boletos que desea comprar:"));
+                     controllerVuelo.comprarVuelo(idUsuario, idVuelo, clase, boletos);
                     break;
                 case 1:
                     int idPaquete = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del paquete que desea comprar:"));
                     controllerPaquete.comprarPaquete(idUsuario, idPaquete);
                     break;
                 case 2:
+                	
                     JOptionPane.showMessageDialog(null, "Saliendo del sistema...");
                     break;
                 default:
@@ -272,4 +276,3 @@ public class Main {
         JOptionPane.showMessageDialog(null, sb.toString());
     }
 }
-
