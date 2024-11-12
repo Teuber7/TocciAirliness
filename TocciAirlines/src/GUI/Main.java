@@ -1,11 +1,11 @@
 package GUI;
 
-import DLL.ControllerVuelo;
+import BLL.Usuario;
+import DLL.ControllerActividad;
+import DLL.ControllerAlojamiento;
 import DLL.ControllerPaquete;
 import DLL.ControllerUsuario;
-import DLL.ControllerAlojamiento;
-import DLL.ControllerActividad;
-import BLL.Usuario;
+import DLL.ControllerVuelo;
 import javax.swing.JOptionPane;
 
 public class Main {

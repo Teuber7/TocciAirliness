@@ -11,7 +11,7 @@ public class ControllerVuelo {
 	        return conexion.getConnection();
 	    }
 
-	 public void crearVuelo() {
+	/* public void crearVuelo() {
 		    // Información básica
 		    String origen = JOptionPane.showInputDialog("Ingrese el origen del vuelo:");
 		    String destino = JOptionPane.showInputDialog("Ingrese el destino del vuelo:");
@@ -44,6 +44,45 @@ public class ControllerVuelo {
 		        JOptionPane.showMessageDialog(null, "Error al crear el vuelo.");
 		    }
 		}
+*/
+	 public void crearVuelo() {
+		    String origen = JOptionPane.showInputDialog("Ingrese el origen del vuelo:");
+		    String destino = JOptionPane.showInputDialog("Ingrese el destino del vuelo:");
+		    String fechaSalida = JOptionPane.showInputDialog("Ingrese la fecha de salida del vuelo (YYYY-MM-DD):");
+		    String fechaLlegada = JOptionPane.showInputDialog("Ingrese la fecha de llegada del vuelo (YYYY-MM-DD):");
+
+		    // Precios para cada clase
+		    double precioEconomica = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio para clase económica:"));
+		    double precioPremium = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio para clase premium:"));
+		    double precioPrimera = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio para primera clase:"));
+
+		    // Capacidades para cada clase
+		    int capacidadEconomica = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la capacidad para clase económica:"));
+		    int capacidadPremium = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la capacidad para clase premium:"));
+		    int capacidadPrimera = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la capacidad para primera clase:"));
+
+		    String query = "INSERT INTO vuelo (origen, destino, fecha_salida, fecha_llegada, " +
+		                   "precio_economica, precio_premium, precio_primera, capacidad_economica, capacidad_premium, capacidad_primera) " +
+		                   "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+		    try (Connection con = getConnection(); PreparedStatement stmt = con.prepareStatement(query)) {
+		        stmt.setString(1, origen);
+		        stmt.setString(2, destino);
+		        stmt.setString(3, fechaSalida);
+		        stmt.setString(4, fechaLlegada);
+		        stmt.setDouble(5, precioEconomica);
+		        stmt.setDouble(6, precioPremium);
+		        stmt.setDouble(7, precioPrimera);
+		        stmt.setInt(8, capacidadEconomica);
+		        stmt.setInt(9, capacidadPremium);
+		        stmt.setInt(10, capacidadPrimera);
+		        stmt.executeUpdate();
+		        JOptionPane.showMessageDialog(null, "Vuelo creado exitosamente.");
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        JOptionPane.showMessageDialog(null, "Error al crear el vuelo.");
+		    }
+		}
 
 	 public LinkedList<Vuelo> listarVuelos() {
 		    LinkedList<Vuelo> vuelos = new LinkedList<>();
@@ -57,11 +96,12 @@ public class ControllerVuelo {
 		                rs.getString("destino"),
 		                rs.getString("fecha_salida"),
 		                rs.getString("fecha_llegada"),
-		                rs.getString("clase"),
-		                rs.getDouble("precio"),
 		                rs.getInt("capacidad_economica"),
 		                rs.getInt("capacidad_premium"),
-		                rs.getInt("capacidad_primera")
+		                rs.getInt("capacidad_primera"),
+		                rs.getDouble("precio_economica"),
+		                rs.getDouble("precio_premium"),
+		                rs.getDouble("precio_primera")
 		            );
 		            vuelos.add(vuelo);
 		        }
@@ -72,32 +112,46 @@ public class ControllerVuelo {
 		    return vuelos;
 		}
 
+	 public void actualizarVuelo(int id) {
+		    String origen = JOptionPane.showInputDialog("Ingrese el nuevo origen del vuelo:");
+		    String destino = JOptionPane.showInputDialog("Ingrese el nuevo destino del vuelo:");
+		    String fechaSalida = JOptionPane.showInputDialog("Ingrese la nueva fecha de salida del vuelo (YYYY-MM-DD):");
+		    String fechaLlegada = JOptionPane.showInputDialog("Ingrese la nueva fecha de llegada del vuelo (YYYY-MM-DD):");
 
-    public void actualizarVuelo(int id) {
-        String origen = JOptionPane.showInputDialog("Ingrese el nuevo origen del vuelo:");
-        String destino = JOptionPane.showInputDialog("Ingrese el nuevo destino del vuelo:");
-        String fechaSalida = JOptionPane.showInputDialog("Ingrese la nueva fecha de salida del vuelo (YYYY-MM-DD):");
-        String fechaLlegada = JOptionPane.showInputDialog("Ingrese la nueva fecha de llegada del vuelo (YYYY-MM-DD):");
-        String clase = JOptionPane.showInputDialog("Ingrese la nueva clase del vuelo (economica/premium/primera):");
-        double precio = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio del vuelo:"));
+		    // Capacidad para cada clase
+		    int capacidadEconomica = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la nueva capacidad para clase económica:"));
+		    int capacidadPremium = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la nueva capacidad para clase premium:"));
+		    int capacidadPrimera = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la nueva capacidad para clase primera:"));
 
-        String query = "UPDATE vuelo SET origen = ?, destino = ?, fecha_salida = ?, fecha_llegada = ?, clase = ?, precio = ? WHERE id_vuelo = ?";
+		    // Precio para cada clase
+		    double precioEconomica = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio para clase económica:"));
+		    double precioPremium = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio para clase premium:"));
+		    double precioPrimera = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio para clase primera:"));
 
-        try (Connection con = getConnection(); PreparedStatement stmt = con.prepareStatement(query)) {
-            stmt.setString(1, origen);
-            stmt.setString(2, destino);
-            stmt.setString(3, fechaSalida);
-            stmt.setString(4, fechaLlegada);
-            stmt.setString(5, clase);
-            stmt.setDouble(6, precio);
-            stmt.setInt(7, id);
-            stmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Vuelo actualizado exitosamente.");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al actualizar el vuelo.");
-        }
-    }
+		    String query = "UPDATE vuelo SET origen = ?, destino = ?, fecha_salida = ?, fecha_llegada = ?, " +
+		                   "capacidad_economica = ?, capacidad_premium = ?, capacidad_primera = ?, " +
+		                   "precio_economica = ?, precio_premium = ?, precio_primera = ? WHERE id_vuelo = ?";
+
+		    try (Connection con = getConnection(); PreparedStatement stmt = con.prepareStatement(query)) {
+		        stmt.setString(1, origen);
+		        stmt.setString(2, destino);
+		        stmt.setString(3, fechaSalida);
+		        stmt.setString(4, fechaLlegada);
+		        stmt.setInt(5, capacidadEconomica);
+		        stmt.setInt(6, capacidadPremium);
+		        stmt.setInt(7, capacidadPrimera);
+		        stmt.setDouble(8, precioEconomica);
+		        stmt.setDouble(9, precioPremium);
+		        stmt.setDouble(10, precioPrimera);
+		        stmt.setInt(11, id);
+		        stmt.executeUpdate();
+		        
+		        JOptionPane.showMessageDialog(null, "Vuelo actualizado exitosamente.");
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        JOptionPane.showMessageDialog(null, "Error al actualizar el vuelo.");
+		    }
+		}
 
     public void eliminarVuelo(int id) {
         String query = "DELETE FROM vuelo WHERE id_vuelo = ?";

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-11-2024 a las 23:08:27
+-- Tiempo de generación: 12-11-2024 a las 01:25:01
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -236,22 +236,23 @@ CREATE TABLE `vuelo` (
   `destino` varchar(50) NOT NULL,
   `fecha_salida` date NOT NULL,
   `fecha_llegada` date NOT NULL,
-  `clase` enum('economica','premium','primera') NOT NULL,
-  `precio` decimal(10,2) NOT NULL,
   `capacidad_economica` int(11) DEFAULT NULL,
   `capacidad_premium` int(11) DEFAULT NULL,
   `capacidad_primera` int(11) DEFAULT NULL,
   `asientos_ocupados_economica` int(11) DEFAULT 0,
   `asientos_ocupados_premium` int(11) DEFAULT 0,
-  `asientos_ocupados_primera` int(11) DEFAULT 0
+  `asientos_ocupados_primera` int(11) DEFAULT 0,
+  `precio_economica` double NOT NULL,
+  `precio_premium` double NOT NULL,
+  `precio_primera` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `vuelo`
 --
 
-INSERT INTO `vuelo` (`id_vuelo`, `origen`, `destino`, `fecha_salida`, `fecha_llegada`, `clase`, `precio`, `capacidad_economica`, `capacidad_premium`, `capacidad_primera`, `asientos_ocupados_economica`, `asientos_ocupados_premium`, `asientos_ocupados_primera`) VALUES
-(1, 'buenos aires', 'salta', '2024-12-01', '2024-12-22', 'economica', 2000.00, 150, 28, 10, 0, 0, 0);
+INSERT INTO `vuelo` (`id_vuelo`, `origen`, `destino`, `fecha_salida`, `fecha_llegada`, `clase`, `precio`, `capacidad_economica`, `capacidad_premium`, `capacidad_primera`, `asientos_ocupados_economica`, `asientos_ocupados_premium`, `asientos_ocupados_primera`, `precio_economica`, `precio_premium`, `precio_primera`) VALUES
+(1, 'buenos aires', 'salta', '2024-12-01', '2024-12-22', 'economica', 2000.00, 150, 28, 10, 0, 0, 0, 0, 0, 0);
 
 --
 -- Índices para tablas volcadas
