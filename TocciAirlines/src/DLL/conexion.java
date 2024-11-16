@@ -9,7 +9,7 @@ public class conexion {
     private static final String USER = "root";
     private static final String PASSWORD = "";
 
-    private conexion() {} 
+    private conexion() {} // Constructor privado para prevenir instanciación
 
     public static Connection getConnection() {
         try {

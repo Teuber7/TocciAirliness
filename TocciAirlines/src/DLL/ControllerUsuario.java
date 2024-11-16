@@ -1,9 +1,9 @@
 package DLL;
 
 import BLL.Usuario;
+import javax.swing.JOptionPane;
 import java.sql.*;
 import java.util.LinkedList;
-import javax.swing.JOptionPane;
 
 public class ControllerUsuario {
 
@@ -225,5 +225,21 @@ public class ControllerUsuario {
             JOptionPane.showMessageDialog(null, "Error al asignar o actualizar el paquete para el cliente.");
         }
     }
+    public static void crearUsuario(String nombre, String apellido, String email, String contraseña) {
+        String query = "INSERT INTO usuario (nombre, apellido, email, contraseña, rol) VALUES (?, ?, ?, ?, 'cliente')";
+
+        try (Connection con = conexion.getConnection(); PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, nombre);
+            stmt.setString(2, apellido);
+            stmt.setString(3, email);
+            stmt.setString(4, contraseña);
+            stmt.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        }
+    }
+
 
 }
