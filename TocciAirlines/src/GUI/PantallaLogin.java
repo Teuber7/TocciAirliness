@@ -29,13 +29,14 @@ public class PantallaLogin extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 363, 346);
         contentPane = new JPanel();
+        contentPane.setBackground(new Color(0, 128, 128));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
         
         
         JLabel lblLogo = new JLabel();
-        lblLogo.setBounds(76, 0, 260, 143); // Ajusta la posición y tamaño según sea necesario
+        lblLogo.setBounds(76, 0, 260, 143); 
         ImageIcon logoIcon = new ImageIcon(getClass().getResource("/Img/logo.jpg"));
         lblLogo.setIcon(new ImageIcon(logoIcon.getImage().getScaledInstance(200, 100, Image.SCALE_SMOOTH)));
         contentPane.add(lblLogo);
@@ -45,6 +46,7 @@ public class PantallaLogin extends JFrame {
         contentPane.add(lblEmail);
 
         emailField = new JTextField();
+        emailField.setBackground(new Color(255, 255, 255));
         emailField.setBounds(130, 147, 150, 25);
         contentPane.add(emailField);
 
@@ -57,6 +59,7 @@ public class PantallaLogin extends JFrame {
         contentPane.add(passwordField);
 
         JButton btnLogin = new JButton("Ingresar");
+        btnLogin.setBackground(UIManager.getColor("CheckBox.focus"));
         btnLogin.setBounds(50, 250, 100, 30);
         btnLogin.addActionListener(new ActionListener() {
             @Override
@@ -67,12 +70,11 @@ public class PantallaLogin extends JFrame {
                 Usuario usuario = ControllerUsuario.login(email, password);
                 if (usuario != null) {
                     JOptionPane.showMessageDialog(null, "Bienvenido, " + usuario.getUsername());
-                    // Abre la siguiente ventana (puedes cambiar esto según tu lógica)
-                    // Ejemplo:
+                    
                     if (usuario.getRol().equalsIgnoreCase("admin")) {
-                       // new PantallaAdmin(usuario).setVisible(true);
+                        new PantallaAdmin(email).setVisible(true);
                     } else {
-                   //     new PantallaCliente(usuario).setVisible(true);
+                      new PantallaCliente(email).setVisible(true);
                     }
                     dispose();
                 } else {
@@ -80,9 +82,11 @@ public class PantallaLogin extends JFrame {
                 }
             }
         });
+            
         contentPane.add(btnLogin);
 
         JButton btnRegister = new JButton("Registrarse");
+        btnRegister.setBackground(UIManager.getColor("Button.foreground"));
         btnRegister.setBounds(198, 250, 120, 30);
         btnRegister.addActionListener(new ActionListener() {
             @Override
@@ -93,6 +97,4 @@ public class PantallaLogin extends JFrame {
         });
         contentPane.add(btnRegister);
     }
-
-   
 }

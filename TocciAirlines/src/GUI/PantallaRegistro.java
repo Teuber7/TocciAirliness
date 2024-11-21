@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Color;
 
 public class PantallaRegistro extends JFrame {
     private JPanel contentPane;
@@ -21,6 +22,7 @@ public class PantallaRegistro extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 401, 470);
         contentPane = new JPanel();
+        contentPane.setBackground(new Color(0, 128, 128));
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
@@ -65,6 +67,8 @@ public class PantallaRegistro extends JFrame {
         contentPane.add(passwordField);
 
         JButton btnRegister = new JButton("Registrar");
+        btnRegister.setForeground(new Color(0, 0, 0));
+        btnRegister.setBackground(new Color(255, 255, 255));
         btnRegister.setBounds(100, 352, 150, 30);
         btnRegister.addActionListener(new ActionListener() {
             @Override
