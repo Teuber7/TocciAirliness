@@ -69,7 +69,7 @@ public class ControllerPaquete {
             stmt.setDouble(4, precioTotal);
             stmt.setInt(5, id);
             stmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Paquete actualizado exitosamente.");
+            JOptionPane.showMessageDialog(null, "Paquete actualizado.");
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al actualizar el paquete.");
