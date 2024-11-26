@@ -115,7 +115,7 @@ public class PantallaActividad extends JFrame {
                 String descripcion = (String) model.getValueAt(i, 2);
                 double precio = Double.parseDouble(model.getValueAt(i, 3).toString());
 
-                actividadController.actualizarActividad(new Actividad(idActividad, nombre, descripcion, precio));
+                actividadController.actualizarActividad();
             }
             JOptionPane.showMessageDialog(this, "Actividades actualizadas exitosamente.");
         } catch (Exception ex) {
@@ -134,7 +134,7 @@ public class PantallaActividad extends JFrame {
                 boolean eliminar = (boolean) model.getValueAt(i, 4);
                 if (eliminar) {
                     int idActividad = (int) model.getValueAt(i, 0);
-                    actividadController.eliminarActividad(idActividad);
+                    actividadController.eliminarActividad();
                     model.removeRow(i);
                 }
             }
