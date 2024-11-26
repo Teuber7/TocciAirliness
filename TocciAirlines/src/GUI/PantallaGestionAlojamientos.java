@@ -32,7 +32,7 @@ public class PantallaGestionAlojamientos extends JFrame {
 
         // Configurar tabla
         model = new DefaultTableModel(new Object[]{
-                "ID", "Ubicación", "Tipo", "Precio", "Capacidad", "Eliminar"
+                "ID Alojamiento", "Ubicación", "Tipo", "Precio", "Capacidad", "Eliminar"
         }, 0) {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
@@ -86,7 +86,7 @@ public class PantallaGestionAlojamientos extends JFrame {
     // Cargar alojamientos en la tabla
     private void cargarAlojamientos() {
         model.setRowCount(0); // Limpiar tabla
-        LinkedList<Alojamiento> alojamientos = alojamientoController.listarAlojamientos();
+        LinkedList<Alojamiento> alojamientos = ControllerAlojamiento.listarAlojamientos();
         for (Alojamiento alojamiento : alojamientos) {
             model.addRow(new Object[]{
                     alojamiento.getIdAlojamiento(), alojamiento.getUbicacion(), alojamiento.getTipo(),
@@ -97,8 +97,11 @@ public class PantallaGestionAlojamientos extends JFrame {
 
     // Crear un nuevo alojamiento
     private void crearAlojamiento() {
-        alojamientoController.crearAlojamiento();
-        cargarAlojamientos();
+        try {
+            cargarAlojamientos();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error al crear el alojamiento.");
+        }
     }
 
     // Actualizar alojamientos
@@ -111,9 +114,8 @@ public class PantallaGestionAlojamientos extends JFrame {
                 double precio = Double.parseDouble(model.getValueAt(i, 3).toString());
                 int capacidad = Integer.parseInt(model.getValueAt(i, 4).toString());
 
-                alojamientoController.actualizarAlojamiento(idAlojamiento);
+                ControllerAlojamiento.actualizarAlojamiento(idAlojamiento);
             }
-            cargarAlojamientos();
             JOptionPane.showMessageDialog(this, "Alojamientos actualizados exitosamente.");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error al actualizar los alojamientos.");
@@ -131,7 +133,7 @@ public class PantallaGestionAlojamientos extends JFrame {
                 boolean eliminar = (boolean) model.getValueAt(i, 5);
                 if (eliminar) {
                     int idAlojamiento = (int) model.getValueAt(i, 0);
-                    alojamientoController.eliminarAlojamiento(idAlojamiento);
+                    ControllerAlojamiento.eliminarAlojamiento(idAlojamiento);
                     model.removeRow(i);
                 }
             }

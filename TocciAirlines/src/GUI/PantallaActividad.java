@@ -32,7 +32,7 @@ public class PantallaActividad extends JFrame {
 
         // Configurar tabla
         model = new DefaultTableModel(new Object[]{
-                "ID", "Nombre", "Descripción", "Precio", "Eliminar"
+                "ID Actividad", "Nombre", "Descripción", "Precio", "Eliminar"
         }, 0) {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
@@ -86,7 +86,7 @@ public class PantallaActividad extends JFrame {
     // Cargar actividades en la tabla
     private void cargarActividades() {
         model.setRowCount(0); // Limpiar tabla
-        LinkedList<Actividad> actividades = actividadController.obtenerActividades();
+        LinkedList<Actividad> actividades = ControllerActividad.obtenerActividades();
         for (Actividad actividad : actividades) {
             model.addRow(new Object[]{
                     actividad.getIdActividad(), actividad.getNombre(),
@@ -99,7 +99,7 @@ public class PantallaActividad extends JFrame {
     // Crear una nueva actividad
     private void crearActividad() {
         try {
-            actividadController.crearActividad();
+        	ControllerActividad.crearActividad();
             cargarActividades();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Error al crear la actividad.");
@@ -115,7 +115,7 @@ public class PantallaActividad extends JFrame {
                 String descripcion = (String) model.getValueAt(i, 2);
                 double precio = Double.parseDouble(model.getValueAt(i, 3).toString());
 
-                actividadController.actualizarActividad();
+                ControllerActividad.actualizarActividad();
             }
             JOptionPane.showMessageDialog(this, "Actividades actualizadas exitosamente.");
         } catch (Exception ex) {
@@ -134,7 +134,7 @@ public class PantallaActividad extends JFrame {
                 boolean eliminar = (boolean) model.getValueAt(i, 4);
                 if (eliminar) {
                     int idActividad = (int) model.getValueAt(i, 0);
-                    actividadController.eliminarActividad();
+                    ControllerActividad.eliminarActividad();
                     model.removeRow(i);
                 }
             }
@@ -142,4 +142,5 @@ public class PantallaActividad extends JFrame {
         }
     }
 }
+
 
