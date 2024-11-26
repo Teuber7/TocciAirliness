@@ -86,7 +86,7 @@ public class PantallaPaquete extends JFrame {
   
     private void cargarPaquetes() {
         model.setRowCount(0); // Limpiar tabla
-        LinkedList<Paquete> paquetes = paqueteController.listarPaquetes();
+        LinkedList<Paquete> paquetes = ControllerPaquete.listarPaquetes();
         for (Paquete paquete : paquetes) {
             model.addRow(new Object[]{
                     paquete.getIdPaquete(), paquete.getIdVuelo(), paquete.getIdActividad(),
@@ -104,7 +104,7 @@ public class PantallaPaquete extends JFrame {
             int idAlojamiento = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del alojamiento:"));
             double precioTotal = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio total del paquete:"));
 
-            paqueteController.crearPaquete(idVuelo, idActividad, idAlojamiento, precioTotal);
+            ControllerPaquete.crearPaquete();
             cargarPaquetes();
             JOptionPane.showMessageDialog(this, "Paquete creado exitosamente.");
         } catch (Exception ex) {
@@ -122,7 +122,7 @@ public class PantallaPaquete extends JFrame {
                 int idAlojamiento = (int) model.getValueAt(i, 3);
                 double precioTotal = Double.parseDouble(model.getValueAt(i, 4).toString());
 
-                paqueteController.actualizarPaquete(idPaquete, idVuelo, idActividad, idAlojamiento, precioTotal);
+                ControllerPaquete.actualizarPaquete(idPaquete);
             }
             JOptionPane.showMessageDialog(this, "Paquetes actualizados exitosamente.");
         } catch (Exception ex) {
@@ -141,7 +141,7 @@ public class PantallaPaquete extends JFrame {
                 boolean eliminar = (boolean) model.getValueAt(i, 5);
                 if (eliminar) {
                     int idPaquete = (int) model.getValueAt(i, 0);
-                    paqueteController.eliminarPaquete(idPaquete);
+                    ControllerPaquete.eliminarPaquete(idPaquete);
                     model.removeRow(i);
                 }
             }

@@ -65,7 +65,7 @@ public class PantallaAdmin extends JFrame {
 
         btnCrudAlojamiento.addActionListener(e -> {
            
-         new PantallaAlojamiento(nombreUsuario).setVisible(true);
+         new PantallaGestionAlojamientos(nombreUsuario).setVisible(true);
             dispose();
         });
 

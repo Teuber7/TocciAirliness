@@ -11,7 +11,7 @@ public class ControllerPaquete {
 	        return conexion.getConnection();
 	    }
 
-    public void crearPaquete() {
+    public static void crearPaquete() {
         int idVuelo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del vuelo:"));
         int idActividad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la actividad:"));
         int idAlojamiento = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del alojamiento:"));
@@ -32,7 +32,7 @@ public class ControllerPaquete {
         }
     }
 
-    public LinkedList<Paquete> listarPaquetes() {
+    public static LinkedList<Paquete> listarPaquetes() {
         LinkedList<Paquete> paquetes = new LinkedList<>();
         String query = "SELECT * FROM paquete";
 
@@ -54,7 +54,7 @@ public class ControllerPaquete {
         return paquetes;
     }
 
-    public void actualizarPaquete(int id) {
+    public static void actualizarPaquete(int id) {
         int idVuelo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el nuevo ID del vuelo:"));
         int idActividad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el nuevo ID de la actividad:"));
         int idAlojamiento = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el nuevo ID del alojamiento:"));
@@ -76,7 +76,7 @@ public class ControllerPaquete {
         }
     }
 
-    public void eliminarPaquete(int id) {
+    public static void eliminarPaquete(int id) {
         String query = "DELETE FROM paquete WHERE id_paquete = ?";
 
         try (Connection con = getConnection(); PreparedStatement stmt = con.prepareStatement(query)) {

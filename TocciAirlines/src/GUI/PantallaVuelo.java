@@ -52,7 +52,7 @@ public class PantallaVuelo extends JFrame {
 
         // Listeners para los botones
         btnCrearVuelo.addActionListener(e -> {
-            new PantallaCrearVuelo(nombreUsuario).setVisible(true);
+            new PantallaCambiarVuelo().setVisible(true);
             dispose();
         });
 
@@ -62,12 +62,12 @@ public class PantallaVuelo extends JFrame {
         });
 
         btnActualizarVuelo.addActionListener(e -> {
-            new PantallaActualizarVuelo(nombreUsuario).setVisible(true);
+            new PantallaCambiarVuelo(nombreUsuario).setVisible(true);
             dispose();
         });
 
         btnEliminarVuelo.addActionListener(e -> {
-            new PantallaEliminarVuelo(nombreUsuario).setVisible(true);
+            new PantallaCambiarVuelo(nombreUsuario).setVisible(true);
             dispose();
         });
 
