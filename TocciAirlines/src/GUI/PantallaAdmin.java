@@ -6,13 +6,13 @@ import java.awt.event.ActionEvent;
 
 public class PantallaAdmin extends JFrame {
 
-    public PantallaAdmin(String nombreUsuario) {
+    public PantallaAdmin() {
         setTitle("Panel de Administración");
         setSize(400, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(new BorderLayout());
 
-        JLabel lblBienvenida = new JLabel("Bienvenido, " + nombreUsuario, SwingConstants.CENTER);
+        JLabel lblBienvenida = new JLabel("Bienvenido, ", SwingConstants.CENTER);
         lblBienvenida.setBackground(new Color(0, 128, 128));
         lblBienvenida.setFont(new Font("Arial", Font.BOLD, 18));
         getContentPane().add(lblBienvenida, BorderLayout.NORTH);
@@ -47,31 +47,32 @@ public class PantallaAdmin extends JFrame {
         
         btnCrudVuelo.addActionListener(e -> {
             
-             new PantallaVuelo(nombreUsuario).setVisible(true);
+        	new PantallaGestionVuelo().setVisible(true);
             dispose();
         });
 
         btnCrudPaquete.addActionListener(e -> {
             
-            new PantallaPaquete(nombreUsuario).setVisible(true);
+            new PantallaGestionPaquete().setVisible(true);
+        
             dispose();
         });
 
         btnCrudUsuario.addActionListener(e -> {
             
-            new PantallaUsuario(nombreUsuario).setVisible(true);
+           new PantallaGestionUsuario().setVisible(true);
             dispose();
         });
 
         btnCrudAlojamiento.addActionListener(e -> {
            
-         new PantallaGestionAlojamientos(nombreUsuario).setVisible(true);
+         new PantallaGestionAlojamiento().setVisible(true);
             dispose();
         });
 
         btnCrudActividad.addActionListener(e -> {
           
-        new PantallaActividad(nombreUsuario).setVisible(true);
+        new PantallaGestionActividad().setVisible(true);
             dispose();
         });
 

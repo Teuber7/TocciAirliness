@@ -11,7 +11,7 @@ public class ControllerAlojamiento {
 	        return conexion.getConnection();
 	    }
 
-    public static void crearAlojamiento() {
+    public void crearAlojamiento() {
         String ubicacion = JOptionPane.showInputDialog("Ingrese la ubicación del alojamiento:");
         String tipo = JOptionPane.showInputDialog("Ingrese el tipo de alojamiento:");
         double precio = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio del alojamiento:"));
@@ -32,7 +32,7 @@ public class ControllerAlojamiento {
         }
     }
 
-    public static LinkedList<Alojamiento> listarAlojamientos() {
+    public LinkedList<Alojamiento> listarAlojamientos() {
         LinkedList<Alojamiento> alojamientos = new LinkedList<>();
         String query = "SELECT * FROM alojamiento";
 
@@ -54,7 +54,7 @@ public class ControllerAlojamiento {
         return alojamientos;
     }
 
-    public static void actualizarAlojamiento(int id) {
+    public void actualizarAlojamiento(int id) {
         String ubicacion = JOptionPane.showInputDialog("Ingrese la nueva ubicación del alojamiento:");
         String tipo = JOptionPane.showInputDialog("Ingrese el nuevo tipo de alojamiento:");
         double precio = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el nuevo precio del alojamiento:"));
@@ -76,7 +76,7 @@ public class ControllerAlojamiento {
         }
     }
 
-    public static void eliminarAlojamiento(int id) {
+    public void eliminarAlojamiento(int id) {
         String query = "DELETE FROM alojamiento WHERE id_alojamiento = ?";
 
         try (Connection con = getConnection(); PreparedStatement stmt = con.prepareStatement(query)) {

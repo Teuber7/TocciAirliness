@@ -10,7 +10,7 @@ public class ControllerActividad {
         return conexion.getConnection();
     }
 
-    public static void crearActividad() {
+    public void crearActividad() {
         String nombre = JOptionPane.showInputDialog("Ingrese el nombre de la actividad:");
         String descripcion = JOptionPane.showInputDialog("Ingrese una descripción de la actividad:");
         double precio = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el precio de la actividad:"));
@@ -32,7 +32,7 @@ public class ControllerActividad {
         }
     }
 
-    public static LinkedList<Actividad> obtenerActividades() {
+    public LinkedList<Actividad> obtenerActividades() {
         LinkedList<Actividad> actividades = new LinkedList<>();
         String query = "SELECT * FROM actividad";
 
@@ -55,7 +55,7 @@ public class ControllerActividad {
         return actividades;
     }
 
-    public static void actualizarActividad() {
+    public void actualizarActividad() {
         int idActividad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la actividad a actualizar:"));
         String nuevoNombre = JOptionPane.showInputDialog("Ingrese el nuevo nombre:");
         String nuevaDescripcion = JOptionPane.showInputDialog("Ingrese la nueva descripción:");
@@ -83,7 +83,7 @@ public class ControllerActividad {
         }
     }
 
-    public static void eliminarActividad() {
+    public void eliminarActividad() {
         int idActividad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la actividad a eliminar:"));
 
         String query = "DELETE FROM actividad WHERE idActividad = ?";

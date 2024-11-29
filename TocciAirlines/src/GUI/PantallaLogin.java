@@ -72,9 +72,9 @@ public class PantallaLogin extends JFrame {
                     JOptionPane.showMessageDialog(null, "Bienvenido, " + usuario.getUsername());
                     
                     if (usuario.getRol().equalsIgnoreCase("admin")) {
-                        new PantallaAdmin(email).setVisible(true);
+                        new PantallaAdmin().setVisible(true);
                     } else {
-                      new PantallaCliente(email).setVisible(true);
+                    	 new PantallaCliente(usuario.getUsername(), usuario.getIdUsuario()).setVisible(true);
                     }
                     dispose();
                 } else {

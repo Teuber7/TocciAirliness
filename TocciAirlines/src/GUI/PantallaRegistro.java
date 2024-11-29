@@ -80,7 +80,7 @@ public class PantallaRegistro extends JFrame {
 
                 ControllerUsuario.crearUsuario(nombre, apellido, email, contraseña);
                 //JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente.");
-                new PantallaExito().setVisible(true);
+          
                new PantallaLogin().setVisible(true);
                 dispose();
             }

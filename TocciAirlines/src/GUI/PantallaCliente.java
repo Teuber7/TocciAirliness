@@ -1,76 +1,64 @@
 package GUI;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class PantallaCliente extends JFrame {
-    private JPanel contentPane;
 
-    public PantallaCliente(String username) {
-        setTitle("Pantalla Cliente");
+    public PantallaCliente(String nombreUsuario, int idUsuario) {
+        setTitle("Panel Cliente");
+        setSize(400, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 400, 300);
-        contentPane = new JPanel();
-        contentPane.setBackground(new Color(0, 128, 128));
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        setContentPane(contentPane);
-        contentPane.setLayout(null);
+        getContentPane().setLayout(new BorderLayout());
 
         // Mensaje de bienvenida
-        JLabel lblBienvenido = new JLabel("Bienvenido, " + username + "!");
-        lblBienvenido.setHorizontalAlignment(SwingConstants.CENTER);
-        lblBienvenido.setFont(new Font("Arial", Font.BOLD, 18));
-        lblBienvenido.setBounds(20, 10, 350, 30);
-        contentPane.add(lblBienvenido);
+        JLabel lblBienvenida = new JLabel("Bienvenido, " + nombreUsuario, SwingConstants.CENTER);
+        lblBienvenida.setFont(new Font("Arial", Font.BOLD, 18));
+        lblBienvenida.setBackground(new Color(0, 128, 128));
+        lblBienvenida.setOpaque(true);
+        lblBienvenida.setForeground(Color.WHITE);
+        getContentPane().add(lblBienvenida, BorderLayout.NORTH);
+
+        // Panel de botones
+        JPanel panelBotones = new JPanel();
+        panelBotones.setBackground(new Color(0, 128, 128));
+        panelBotones.setLayout(new GridLayout(3, 1, 10, 10));
 
         // Botón "Comprar Vuelo"
         JButton btnComprarVuelo = new JButton("Comprar Vuelo");
-        btnComprarVuelo.setBounds(120, 70, 150, 30);
-        btnComprarVuelo.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Abrir la pantalla de compra de vuelo
-                JOptionPane.showMessageDialog(null, "Función 'Comprar Vuelo' aún no implementada.");
-            }
+        btnComprarVuelo.setFont(new Font("Arial", Font.PLAIN, 12)); // Fuente más pequeña
+        btnComprarVuelo.setPreferredSize(new Dimension(150, 30)); // Botón más estrecho
+        btnComprarVuelo.setMaximumSize(new Dimension(150, 30));  // Limita el tamaño máximo del botón
+        btnComprarVuelo.addActionListener(e -> {
+            // Abrir la pantalla de compra de vuelo
+            new PantallaCompra(idUsuario).setVisible(true); // Ajustado para pasar idUsuario
+            dispose();
         });
-        contentPane.add(btnComprarVuelo);
+        panelBotones.add(btnComprarVuelo);
 
         // Botón "Comprar Paquete"
         JButton btnComprarPaquete = new JButton("Comprar Paquete");
-        btnComprarPaquete.setBounds(120, 120, 150, 30);
-        btnComprarPaquete.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Abrir la pantalla de compra de paquete
-                JOptionPane.showMessageDialog(null, "Función 'Comprar Paquete' aún no implementada.");
-            }
+        btnComprarPaquete.setFont(new Font("Arial", Font.PLAIN, 12)); // Fuente más pequeña
+        btnComprarPaquete.setPreferredSize(new Dimension(150, 30)); // Botón más estrecho
+        btnComprarPaquete.setMaximumSize(new Dimension(150, 30)); // Limita el tamaño máximo del botón
+        btnComprarPaquete.addActionListener(e -> {
+            JOptionPane.showMessageDialog(this, "Función 'Comprar Paquete' aún no implementada.");
         });
-        contentPane.add(btnComprarPaquete);
+        panelBotones.add(btnComprarPaquete);
 
         // Botón "Salir"
         JButton btnSalir = new JButton("Salir");
-        btnSalir.setBounds(120, 170, 150, 30);
-        btnSalir.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dispose(); // Cierra la ventana actual
-            }
+        btnSalir.setFont(new Font("Arial", Font.PLAIN, 12)); // Fuente más pequeña
+        btnSalir.setPreferredSize(new Dimension(150, 30)); // Botón más estrecho
+        btnSalir.setMaximumSize(new Dimension(150, 30));  // Limita el tamaño máximo del botón
+        btnSalir.addActionListener(e -> {
+            dispose();
+            new PantallaLogin().setVisible(true);
         });
-        contentPane.add(btnSalir);
-    }
+        panelBotones.add(btnSalir);
 
-    public static void main(String[] args) {
-        // Ejemplo de uso con un nombre de usuario ficticio
-        EventQueue.invokeLater(() -> {
-            try {
-                PantallaCliente frame = new PantallaCliente("UsuarioEjemplo");
-                frame.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
+        getContentPane().add(panelBotones, BorderLayout.CENTER);
+
+        setLocationRelativeTo(null);
     }
 }

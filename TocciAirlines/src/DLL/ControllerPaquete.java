@@ -11,7 +11,7 @@ public class ControllerPaquete {
 	        return conexion.getConnection();
 	    }
 
-    public static void crearPaquete() {
+    public void crearPaquete() {
         int idVuelo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del vuelo:"));
         int idActividad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la actividad:"));
         int idAlojamiento = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID del alojamiento:"));
@@ -32,7 +32,7 @@ public class ControllerPaquete {
         }
     }
 
-    public static LinkedList<Paquete> listarPaquetes() {
+    public LinkedList<Paquete> listarPaquetes() {
         LinkedList<Paquete> paquetes = new LinkedList<>();
         String query = "SELECT * FROM paquete";
 
@@ -54,7 +54,7 @@ public class ControllerPaquete {
         return paquetes;
     }
 
-    public static void actualizarPaquete(int id) {
+    public void actualizarPaquete(int id) {
         int idVuelo = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el nuevo ID del vuelo:"));
         int idActividad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el nuevo ID de la actividad:"));
         int idAlojamiento = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el nuevo ID del alojamiento:"));
@@ -69,14 +69,14 @@ public class ControllerPaquete {
             stmt.setDouble(4, precioTotal);
             stmt.setInt(5, id);
             stmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Paquete actualizado.");
+            JOptionPane.showMessageDialog(null, "Paquete actualizado exitosamente.");
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al actualizar el paquete.");
         }
     }
 
-    public static void eliminarPaquete(int id) {
+    public void eliminarPaquete(int id) {
         String query = "DELETE FROM paquete WHERE id_paquete = ?";
 
         try (Connection con = getConnection(); PreparedStatement stmt = con.prepareStatement(query)) {
